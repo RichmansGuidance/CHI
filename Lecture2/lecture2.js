@@ -27,14 +27,15 @@ const obj = {
     }
 };
 
-// тут використав Obj.assign щоб не писати obj.age = age, obj.name = name 
-const updateAndLog = (name, age) => {
-    Object.assign(obj, { name, age }); 
-    obj.getData();
-};
+obj.getData.call({name : "John", age: 30});
 
-updateAndLog('Alice', 30); 
-updateAndLog('Bob', 25);   
+// ф-ція для автоматичної прив'язки нового контексту 
+function UpdateAndLog(name, age) {
+    obj.getData.call({ name: name, age: age });
+}
+
+UpdateAndLog("Gunter", 22);
+UpdateAndLog("Karl", 24);
 
 // Recursion Task
 const root = {
