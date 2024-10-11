@@ -31,7 +31,8 @@ obj.getData.call({name : "John", age: 30});
 
 // ф-ція для автоматичної прив'язки нового контексту 
 function UpdateAndLog(name, age) {
-    obj.getData.call({ name: name, age: age });
+    const bindGetData = obj.getData.bind({ name: name, age: age });
+    bindGetData(); 
 }
 
 UpdateAndLog("Gunter", 22);
