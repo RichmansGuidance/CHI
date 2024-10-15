@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rick & Morty Characters</title>
+    <link rel="stylesheet" href="morty.css">
+</head>
+<body>
+    <h1>Персонажі Rick & Morty</h1>
+    <div id="characters"></div>
+    <div class="pagination">
+        <button class="button1" id="prev" role="button">
+            <span class="text">Previous page</span>
+            <span>Tap Me ;)</span>
+        </button>
+        <button class="button1" id="next" role="button">
+            <span class="text">Next page</span>
+            <span>Tap Me ;)</span>
+        </button>
+    </div>
+    <div id="current-page">Current page: <span id="page-number">1</span></div>
+    <div id="loading" style="display: none;">Loading…</div>
+    <script src="morty.js"></script>
+</body>
+</html>
