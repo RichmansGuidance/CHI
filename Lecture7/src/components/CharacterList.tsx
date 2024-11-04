@@ -1,47 +1,31 @@
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { DataGrid, GridRowParams, GridColDef } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
 import { fetchCharacters, Character } from '../api/characterApi';
+import { useRequest } from 'ahooks';
 
 interface CharacterListProps {
     onRowClick: (id: number) => void;
 }
 
 const CharacterList: React.FC<CharacterListProps> = ({ onRowClick }) => {
-    const [characters, setCharacters] = useState<Character[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState<number | undefined>(undefined);
 
-    const fetchCharacterData = useCallback(async (page: number) => {
-        setLoading(true);
-        setError(null);
-        try {
-            const data = await fetchCharacters(page);
-            setCharacters(data.results);
-            setTotalPages(data.info.pages);
-        } catch (err) {
-            setError((err as Error).message || "Error fetching characters");
-            console.error("Error fetching characters:", err);
-        } finally {
-            setLoading(false);
-        }
-    }, []);
+    const { data, loading, error } = useRequest(() => fetchCharacters(currentPage), {
+        refreshDeps: [currentPage],
+    });
 
-    useEffect(() => {
-        fetchCharacterData(currentPage);
-    }, [currentPage, fetchCharacterData]);
+    const characters = data?.results || [];
+    const totalPages = data?.info.pages || 0;
 
     const handleRowClick = (params: GridRowParams) => {
         if (params.id) onRowClick(Number(params.id));
     };
 
     const handlePagination = (direction: number) => {
-        setCurrentPage(prev => Math.max(1, Math.min(prev + direction, totalPages!)));
+        setCurrentPage(prev => Math.max(1, Math.min(prev + direction, totalPages)));
     };
 
-    // кинув колонки в мемо оскільки цей масив по суті є статичним і не потрібно його перестворювати при кожному рендері
     const columns: GridColDef[] = useMemo(() => [
         { field: 'id', headerName: 'ID', width: 90 },
         { field: 'name', headerName: 'Name', width: 200 },
@@ -53,7 +37,7 @@ const CharacterList: React.FC<CharacterListProps> = ({ onRowClick }) => {
     return (
         <div style={{ height: 400, width: '100%' }}>
             {loading && <div id="loading">Loading…</div>}
-            {error && <div className="error">{error}</div>}
+            {error && <div className="error">{error.message || "Error fetching characters"}</div>}
             {!loading && !error && (
                 <>
                     <DataGrid
@@ -62,7 +46,7 @@ const CharacterList: React.FC<CharacterListProps> = ({ onRowClick }) => {
                         }))}
                         columns={columns}
                         paginationModel={{ pageSize: 20, page: currentPage - 1 }}
-                        rowCount={totalPages ? totalPages * 20 : 0}
+                        rowCount={totalPages * 20}
                         paginationMode="server"
                         onPaginationModelChange={(model) => setCurrentPage(model.page + 1)}
                         onRowClick={handleRowClick}
