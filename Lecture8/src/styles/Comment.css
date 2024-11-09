@@ -1,0 +1,33 @@
+.commentBox {
+  padding: 12px 20px; 
+  border-radius: 12px; 
+  background-color: #ffffff; 
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1); 
+  margin-bottom: 16px; 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column; 
+  justify-content: space-between;
+}
+
+.commentBox:hover {
+  transform: translateY(-5px); 
+  box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.2); 
+}
+
+.commentBox:active {
+  transform: translateY(2px); 
+}
+
+.commentText {
+  font-weight: 600; 
+  font-size: 1.1em; 
+  color: #333333; 
+  margin-bottom: 8px; 
+}
+
+.commentContent {
+  font-size: 0.95em; 
+  color: #555555; 
+  line-height: 1.5; 
+}
