@@ -1,15 +1,8 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { UserI } from '../../Interfaces/UserI';
 import { UserActions } from '../../api/userActions';
 import { UserStatus } from '../../utils/UserStatus';
 import { removeAuthToken, setAuthToken } from '../../api/axiosInstance';
-
-interface UserState {
-    token: string | null;
-    isAuthenticated: boolean;
-    user: UserI | null;
-    status: UserStatus;
-}
+import { UserStateI } from '../../Interfaces/UserStateI';
 
 const saveToken = (token: string) => {
     localStorage.setItem('token', token);
@@ -58,7 +51,7 @@ export const login = createAsyncThunk(
     }
 );
 
-const initialState: UserState = {
+const initialState: UserStateI = {
     token: null,
     isAuthenticated: false,
     user: null,

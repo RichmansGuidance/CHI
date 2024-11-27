@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "user": "Richman",
+    "email": "Richman@example.com"
+  },
+  {
+    "id": 2,
+    "user": " Marcus Ulpius Traianus",
+    "email": "Emperor@SPQR.com"
+  }
+]

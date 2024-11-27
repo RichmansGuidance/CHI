@@ -1,19 +1,14 @@
 import React, { useCallback } from 'react';
 import { Box, IconButton, Typography } from '@mui/material';
-import { CommentI } from '../../Interfaces/CommentI';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useRequest } from 'ahooks';
 import { CommentsActions } from '../../api/commentsActions';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import '../../styles/Comment.css'; 
+import { CommentPropsI } from '../../Interfaces/CommentProprsI';
 
-interface CommentProps {
-  comment: CommentI;
-  onCommentDelete: () => void;
-}
-
-const Comment: React.FC<CommentProps> = ({ comment, onCommentDelete }) => {
+const Comment: React.FC<CommentPropsI> = ({ comment, onCommentDelete }) => {
   const userId = useSelector((state: RootState) => state.user.user?.id);
 
   const { run: removeComment, loading } = useRequest(

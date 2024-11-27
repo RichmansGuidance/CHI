@@ -3,13 +3,9 @@ import { useRequest } from "ahooks";
 import React, { useCallback, useState } from "react";
 import { CommentsActions } from "../../api/commentsActions";
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
+import { AddCommentFormPropsI } from '../../Interfaces/AddCommentFormProprsI';
 
-interface AddCommentFormProps {
-    exhibitID: number;
-    onSuccess: () => void;
-}
-
-const AddCommentForm: React.FC<AddCommentFormProps> = ({ exhibitID, onSuccess }) => {
+const AddCommentForm: React.FC<AddCommentFormPropsI> = ({ exhibitID, onSuccess }) => {
     const [newComment, setNewComment] = useState<string>("");
 
     const { run: addComment, loading: addingComment } = useRequest(

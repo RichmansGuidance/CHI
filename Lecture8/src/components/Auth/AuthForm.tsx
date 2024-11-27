@@ -2,19 +2,9 @@ import React from 'react';
 import { Box, Button, TextField, Typography, Avatar, Container, CssBaseline, Link, Alert, Grid } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { green } from '@mui/material/colors';
+import { AuthFormPropsI } from '../../Interfaces/AuthFormPropsI';
 
-interface AuthFormProps {
-  title: string;
-  buttonText: string;
-  onSubmit: () => void;
-  loading: boolean;
-  error: string | null;
-  redirectLink: { text: string; href: string };
-  formData: { username: string; password: string };
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
-const AuthForm: React.FC<AuthFormProps> = ({ title, buttonText, onSubmit, loading, error, redirectLink, formData, handleChange }) => {
+const AuthForm: React.FC<AuthFormPropsI> = ({ title, buttonText, onSubmit, loading, error, redirectLink, formData, handleChange }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit();
